@@ -1,8 +1,7 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import AddProduct from "./components/AddProduct";
 import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
-import useCart from "./hooks/useCart";
 import CartContextProvider from "./context/CartContext";
 
 const productsData = [
