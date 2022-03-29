@@ -2,10 +2,9 @@ import React, { useState, useReducer } from "react";
 import AddProduct from "./components/AddProduct";
 import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
-import CartContextProvider from "./context/CartContext";
 import useCart from "./hooks/useCart";
+import CartContextProvider from "./context/CartContext";
 
-export const CartContext = React.createContext();
 const productsData = [
   { id: 0, name: "Honda CRV", price: 1 },
   { id: 1, name: "G63", price: 1 },
@@ -14,53 +13,9 @@ const productsData = [
   { id: 4, name: "Kia Sorento", price: 1 },
 ];
 
-const initialState = [];
-
-const cartReducer = (state, action) => {
-  let product;
-  switch (action.type) {
-    case "ADD":
-      product = action.payload;
-      const found = state.find((cartProduct) => cartProduct.id === product.id);
-      if (found) {
-        return state.map((cartProduct) => {
-          if (cartProduct.id === product.id) {
-            return { ...cartProduct, quantity: cartProduct.quantity + 1 };
-          }
-          return cartProduct;
-        });
-      } else {
-        return [...state, { ...product, quantity: 1 }];
-      }
-
-    case "INC_QUANT":
-      product = action.payload;
-      return state.map((cartProduct) => {
-        if (cartProduct.id === product.id) {
-          return { ...cartProduct, quantity: cartProduct.quantity + 1 };
-        }
-        return cartProduct;
-      });
-
-    case "DEC_QUANT":
-      product = action.payload;
-      return state.map((cartProduct) => {
-        if (cartProduct.id === product.id) {
-          return { ...cartProduct, quantity: cartProduct.quantity - 1 };
-        }
-        return cartProduct;
-      });
-    case "CLEAR":
-      return [];
-
-    default:
-      return state;
-  }
-};
-
 function App() {
   const [products, setProducts] = useState(productsData);
-  const [cartProducts, dispatch] = useReducer(cartReducer, initialState);
+
   // const [
   //   cartProducts,
   //   handleAddToCart,
@@ -74,16 +29,14 @@ function App() {
   };
 
   return (
-    <CartContextProvider
-      value={{ cartProducts: cartProducts, cardDispatch: dispatch }}
-    >
+    <CartContextProvider>
       <h1>Leopard Store</h1>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <AddProduct addProduct={addProduct} />
-          <ProductList products={products} dispatch={dispatch} />
+          <ProductList products={products} />
         </div>
-        <Cart cartProducts={cartProducts} dispatch={dispatch} />
+        <Cart />
       </div>
     </CartContextProvider>
   );

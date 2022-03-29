@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import CartItem from "./CartItem";
+import useCartContext from "../hooks/useCartContext";
 
-function Cart({ cartProducts, dispatch }) {
+function Cart() {
+  const { cartProducts, dispatch } = useCartContext();
   return (
     <div>
       <h3>Cart</h3>
