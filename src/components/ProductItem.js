@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import useCartContext from "../hooks/useCartContext";
 
 function ProductItem({ product }) {
