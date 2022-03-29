@@ -2,8 +2,10 @@ import React, { useState, useReducer } from "react";
 import AddProduct from "./components/AddProduct";
 import Cart from "./components/Cart";
 import ProductList from "./components/ProductList";
+import CartContextProvider from "./context/CartContext";
 import useCart from "./hooks/useCart";
 
+export const CartContext = React.createContext();
 const productsData = [
   { id: 0, name: "Honda CRV", price: 1 },
   { id: 1, name: "G63", price: 1 },
@@ -72,7 +74,9 @@ function App() {
   };
 
   return (
-    <>
+    <CartContextProvider
+      value={{ cartProducts: cartProducts, cardDispatch: dispatch }}
+    >
       <h1>Leopard Store</h1>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
@@ -81,7 +85,7 @@ function App() {
         </div>
         <Cart cartProducts={cartProducts} dispatch={dispatch} />
       </div>
-    </>
+    </CartContextProvider>
   );
 }
 

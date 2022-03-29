@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../App";
 
 function CartItem({ product, dispatch }) {
+  const cardContext = useContext(CartContext);
   return (
     <div
       style={{
